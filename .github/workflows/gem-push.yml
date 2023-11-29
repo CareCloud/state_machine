@@ -24,7 +24,7 @@ jobs:
         gem build *.gemspec | tee BUILDOUT
         gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
         GEM_FILE=`grep File BUILDOUT | awk '{print $2}'`
-        curl -i -X POST -H "Content-Type: multipart/form-data" -F "file=@$GEM_FILE" ${{vars.GEM_SERVER_URL}}
+        curl -v -i -X POST -H "Content-Type: multipart/form-data" -F "file=@$GEM_FILE" ${{vars.GEM_SERVER_URL}}
 
       env:
         OWNER: ${{ github.repository_owner }}
